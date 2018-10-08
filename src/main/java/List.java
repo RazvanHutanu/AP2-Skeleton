@@ -43,23 +43,22 @@ public class List<E extends Comparable<E>> implements ListInterface<E> {
     public ListInterface<E> insert(E d) {
         Node tmp = new Node(d, tail, null);
 
-        if( head == null ){
+        if( head == null )
             head = tmp;
-            tail = tmp;
-            current = tmp;
-        }
-        else {
+        else
             tail.next = tmp;
-            tail = tmp;
-            current = tmp;
-            length++;
-        }
+
+        tail = tmp;
+        current = tmp;
+        length++;
         return this;
     }
 
     @Override
     public E retrieve() {
         if (!isEmpty()) {
+            System.out.println("GOT HERE");
+            System.out.println(this.current.data);
             return this.current.data;
         }
         else {
