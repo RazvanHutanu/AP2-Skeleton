@@ -2,7 +2,7 @@ public class List<E extends Comparable<E>> implements ListInterface<E> {
     private Node head;
     private Node tail;
     private Node current;
-    private int length = 0;
+    private int length;
     private class Node {
 
         E data;
@@ -32,7 +32,7 @@ public class List<E extends Comparable<E>> implements ListInterface<E> {
 
     @Override
     public int size() {
-        return 0;
+        return this.length;
     }
 
     @Override
@@ -42,7 +42,13 @@ public class List<E extends Comparable<E>> implements ListInterface<E> {
 
     @Override
     public E retrieve() {
-        return null;
+        if (!isEmpty()) {
+            return this.current.data;
+        }
+        else {
+            //eroare
+            return null;
+        }
     }
 
     @Override
