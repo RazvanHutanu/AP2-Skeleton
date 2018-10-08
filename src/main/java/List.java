@@ -69,14 +69,17 @@ public class List<E extends Comparable<E>> implements ListInterface<E> {
 
     @Override
     public ListInterface<E> remove() {
-//        if(length != 0){
-//            if(current == tail)
-//
-//        } else {
-//            current = null;
-//            //error
-//            return null;
-//        }
+        if(! isEmpty()){
+            if(current == tail){
+                tail = tail.prior;
+                current = tail;
+            } else {
+                current.prior.next = current.next;
+            }
+        } else {
+            //error
+            return null;
+        }
         return null;
     }
 
