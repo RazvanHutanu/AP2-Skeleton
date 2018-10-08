@@ -42,10 +42,18 @@ public class List<E extends Comparable<E>> implements ListInterface<E> {
     @Override
     public ListInterface<E> insert(E d) {
         Node tmp = new Node(d, tail, null);
-        tail.next = tmp;
-        tail = tmp;
-        current = tmp;
-        length++;
+
+        if( head == null ){
+            head = tmp;
+            tail = tmp;
+            current = tmp;
+        }
+        else {
+            tail.next = tmp;
+            tail = tmp;
+            current = tmp;
+            length++;
+        }
         return this;
     }
 
@@ -62,6 +70,14 @@ public class List<E extends Comparable<E>> implements ListInterface<E> {
 
     @Override
     public ListInterface<E> remove() {
+//        if(length != 0){
+//            if(current == tail)
+//
+//        } else {
+//            current = null;
+//            //error
+//            return null;
+//        }
         return null;
     }
 
