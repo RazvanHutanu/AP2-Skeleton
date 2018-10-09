@@ -41,14 +41,24 @@ public class List<E extends Comparable<E>> implements ListInterface<E> {
 
     @Override
     public ListInterface<E> insert(E d) {
-        Node tmp = new Node(d, tail, null);
+        Node tmp = new Node(d, null, null);
 
-        if( head == null )
+        if( head == null ) {
             head = tmp;
-        else
-            tail.next = tmp;
+            tail = tmp;
+        }
+        else{
+            Node tmp2 = head;
+            for(int i = 0; i < length; i++){
+                if(current.data.compareTo(tmp2.data) < 0){ // current.data - tmp2.data < 0
+                    tmp.prior = tmp2.prior;
+                    tmp.next = tmp2;
+                    tmp2.prior = tmp;
+                }
+            }
+        }
 
-        tail = tmp;
+
         current = tmp;
         length++;
         return this;
