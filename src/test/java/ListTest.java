@@ -219,6 +219,11 @@ public class ListTest {
         list.insert(c);
         list.insert(d);
 
+        assertTrue(list.goToFirst());
+        assertEquals(a, list.retrieve());
+        assertTrue(list.goToNext());
+        assertEquals(a, list.retrieve());
+
         // Test on list with some elements.
         assertTrue(list.goToLast());
         assertEquals(d, list.retrieve());

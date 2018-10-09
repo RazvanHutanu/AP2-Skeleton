@@ -95,27 +95,71 @@ public class List<E extends Comparable<E>> implements ListInterface<E> {
 
     @Override
     public boolean find(E d) {
+//        Node tmp = head;
+//
+//        while(tmp.next != null) {
+//            if(tmp.data == d)
+//            {
+//                current = tmp;
+//            }
+//            else if (isEmpty()) {
+//                current = null;
+//            }
+//            //else if (head > d) {
+//                //current = head;
+//            }
+//            tmp = tmp.next;
+//
+//        }
         return false;
     }
 
     @Override
     public boolean goToFirst() {
-        return false;
+        if(isEmpty()){
+            return false;
+        }
+        else {
+            current = head;
+            return true;
+        }
+
     }
 
     @Override
     public boolean goToLast() {
-        return false;
+        if(isEmpty()){
+            return false;
+        }
+        else {
+            current = tail;
+            return true;
+        }
+
     }
 
     @Override
     public boolean goToNext() {
-        return false;
+        if(isEmpty() || current == tail){
+            return false;
+        }
+        else {
+            current = current.next;
+            return true;
+        }
+
     }
 
     @Override
     public boolean goToPrevious() {
-        return false;
+        if(isEmpty() || current == head){
+            return false;
+        }
+        else {
+            current = current.prior;
+            return true;
+        }
+
     }
 
     @Override
