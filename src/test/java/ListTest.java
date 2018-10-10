@@ -86,7 +86,9 @@ public class ListTest {
         list.insert(f);
 
         list.goToLast();
+        System.out.println(list.retrieve().letter);
         assertEquals("Insert should order larger elements later in list", f, list.retrieve());
+
 
         list.goToFirst();
         assertEquals("Previous elements should still be in list", c, list.retrieve());
@@ -175,6 +177,17 @@ public class ListTest {
     @Test
     public void testFind() {
 
+//        List<Letter> list = new List<>();
+//        Letter a = new Letter('a');
+//        Letter b = new Letter('b');
+//        Letter c = new Letter('c');
+//        Letter d = new Letter('d');
+//        list.insert(a);
+//        list.insert(b);
+//        list.insert(c);
+//        list.insert(d);
+
+
         // TODO: You can add more of your own tests.
     }
 
@@ -222,7 +235,7 @@ public class ListTest {
         assertTrue(list.goToFirst());
         assertEquals(a, list.retrieve());
         assertTrue(list.goToNext());
-        assertEquals(a, list.retrieve());
+        assertEquals(b, list.retrieve());
 
         // Test on list with some elements.
         assertTrue(list.goToLast());

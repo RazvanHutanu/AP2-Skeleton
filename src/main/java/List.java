@@ -43,32 +43,68 @@ public class List<E extends Comparable<E>> implements ListInterface<E> {
     public ListInterface<E> insert(E d) {
         Node tmp = new Node(d, null, null);
 
-        if( head == null ) {
+        if( isEmpty() ) {
             head = tmp;
             tail = tmp;
+            System.out.println("INSERTED FIRST");
+            current = tmp;
+            length++;
+            return this;
         }
-        else{
-            Node tmp2 = head;
-            for(int i = 0; i < length; i++){
-                if(current.data.compareTo(tmp2.data) < 0){ // current.data - tmp2.data < 0
-                    tmp.prior = tmp2.prior;
-                    tmp.next = tmp2;
-                    tmp2.prior = tmp;
-                }
+
+        if(tmp.data.compareTo(head.data) < 0){
+            System.out.println("INSERTED SECOND");
+            head.prior = tmp;
+            tmp.next = head;
+            head = tmp;
+            current = tmp;
+            length++;
+            return this;
+        }
+
+        Node tmp2 = head;
+        while(tmp2 != null) {
+
+            if (tmp.data.compareTo(tmp2.data) < 0) {
+                tmp2.prior.next = tmp;
+                tmp.prior = tmp2.prior;
+                tmp.next = tmp2;
+                tmp2.prior = tmp;
+
+                System.out.println("INSERTED MIDDLE");
+
+                current = tmp;
+                length++;
+                return this;
             }
+
+            tmp2 = tmp2.next;
+
         }
 
-
+        System.out.println("INSERTED LAST");
+        tmp.prior = tail;
+        tail.next = tmp;
+        tail = tmp;
         current = tmp;
         length++;
         return this;
     }
 
+    private void printList() {
+        Node tmp = head;
+        if(isEmpty())
+            return;
+
+        while(tmp != null) {
+            System.out.print(tmp.data + " - ");
+            tmp = tmp.next;
+        }
+    }
+
     @Override
     public E retrieve() {
         if (!isEmpty()) {
-            System.out.println("GOT HERE");
-            System.out.println(this.current.data);
             return this.current.data;
         }
         else {
@@ -85,32 +121,46 @@ public class List<E extends Comparable<E>> implements ListInterface<E> {
                 current = tail;
             } else {
                 current.prior.next = current.next;
+                current.next.prior = current.prior;
+                current = current.next;
             }
+            length--;
         } else {
             //error
             return null;
         }
+
         return null;
     }
 
     @Override
     public boolean find(E d) {
-//        Node tmp = head;
-//
-//        while(tmp.next != null) {
-//            if(tmp.data == d)
-//            {
-//                current = tmp;
-//            }
-//            else if (isEmpty()) {
-//                current = null;
-//            }
-//            //else if (head > d) {
-//                //current = head;
-//            }
-//            tmp = tmp.next;
-//
-//        }
+        Node tmp = head;
+
+        while(tmp != null) {
+
+            if(tmp.data == d) {
+                current = tmp;
+                return true;
+            }
+
+             if (isEmpty()) {
+                 current = null;
+                 return false;
+             }
+
+             if (head.data.compareTo(d) > 0) {
+                 current = head;
+                 return true;
+             }
+
+            if(tail.data.compareTo(d) < 0){
+                current = tail;
+                return true;
+            }
+            tmp = tmp.next;
+
+        }
         return false;
     }
 
@@ -132,6 +182,7 @@ public class List<E extends Comparable<E>> implements ListInterface<E> {
             return false;
         }
         else {
+            System.out.println("Got to the last");
             current = tail;
             return true;
         }
@@ -164,6 +215,7 @@ public class List<E extends Comparable<E>> implements ListInterface<E> {
 
     @Override
     public ListInterface<E> copy() {
-        return null;
+        return this;
     }
+
 }
