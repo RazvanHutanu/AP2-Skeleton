@@ -1,17 +1,16 @@
-public class Set extends List implements SetInterface<StringBuffer>{
-    private ListInterface<StringBuffer> set = new List<>();
+public class Set<E extends Comparable<E>> implements SetInterface<E>{
+    private ListInterface<E> set = new List<>();
 
     Set(){
         set.init();
     }
 
     @Override
-    public void add(StringBuffer value) {
+    public void add(E value) {
         set.insert(value);
     }
 
-    @Override
-    public ListInterface<StringBuffer> getList(){
+    private ListInterface<E> getList(){
         return set.copy();
     }
 
@@ -21,9 +20,9 @@ public class Set extends List implements SetInterface<StringBuffer>{
     }
 
     @Override
-    public SetInterface<StringBuffer> difference(SetInterface<StringBuffer> list){
-        ListInterface<StringBuffer> set2 = getList();
-        SetInterface<StringBuffer> aux = new Set();
+    public SetInterface<E> difference(SetInterface<E> list){
+        ListInterface<E> set2 = getList();
+        SetInterface<E> aux = new Set();
 
         set.goToFirst();
 
@@ -36,9 +35,9 @@ public class Set extends List implements SetInterface<StringBuffer>{
     }
 
     @Override
-    public SetInterface<StringBuffer> intersection(SetInterface<StringBuffer> list){
-        ListInterface<StringBuffer> set2 = getList();
-        SetInterface<StringBuffer> aux = new Set();
+    public SetInterface<E> intersection(SetInterface<E> list){
+        ListInterface<E> set2 = getList();
+        SetInterface<E> aux = new Set();
 
         set.goToFirst();
 
@@ -51,9 +50,9 @@ public class Set extends List implements SetInterface<StringBuffer>{
     }
 
     @Override
-    public SetInterface<StringBuffer> union(SetInterface<StringBuffer> list) {
-        ListInterface<StringBuffer> set2 = getList();
-        SetInterface<StringBuffer> aux = new Set();
+    public SetInterface<E> union(SetInterface<E> list) {
+        ListInterface<E> set2 = getList();
+        SetInterface<E> aux = new Set();
 
         set.goToFirst();
 
@@ -72,9 +71,9 @@ public class Set extends List implements SetInterface<StringBuffer>{
     }
 
     @Override
-    public SetInterface<StringBuffer> symmetricDifference(SetInterface<StringBuffer> list) {
-        ListInterface<StringBuffer> set2 = getList();
-        SetInterface<StringBuffer> aux = new Set();
+    public SetInterface<E> symmetricDifference(SetInterface<E> list) {
+        ListInterface<E> set2 = getList();
+        SetInterface<E> aux = new Set();
 
         set.goToFirst();
 
