@@ -1,22 +1,28 @@
 public class Set<E extends Comparable<E>> implements SetInterface<E>{
-    private ListInterface<E> set = new List<>();
+    private ListInterface<E> list = new List<>();
 
     Set(){
-        set.init();
+        list.init();
     }
 
     @Override
     public void add(E value) {
-        set.insert(value);
+        list.insert(value);
     }
 
     private ListInterface<E> getList(){
-        return set.copy();
+        return list.copy();
     }
 
     @Override
     public int getSize(){
-        return set.size();
+        return list.size();
+    }
+
+    private Set<E> copySet(){
+        Set<E> set2 = new Set<>();
+        set2.list = list.copy();
+        return set2;
     }
 
     @Override
@@ -24,12 +30,12 @@ public class Set<E extends Comparable<E>> implements SetInterface<E>{
         ListInterface<E> set2 = getList();
         SetInterface<E> aux = new Set();
 
-        set.goToFirst();
+        this.list.goToFirst();
 
         do{
-            if(! set2.find(set.retrieve()))
-                aux.add(set.retrieve());
-        }while(set.goToNext());
+            if(! set2.find(this.list.retrieve()))
+                aux.add(this.list.retrieve());
+        }while(this.list.goToNext());
 
         return aux;
     }
@@ -39,12 +45,12 @@ public class Set<E extends Comparable<E>> implements SetInterface<E>{
         ListInterface<E> set2 = getList();
         SetInterface<E> aux = new Set();
 
-        set.goToFirst();
+        this.list.goToFirst();
 
         do{
-            if(set2.find(set.retrieve()))
-                aux.add(set.retrieve());
-        }while(set.goToNext());
+            if(set2.find(this.list.retrieve()))
+                aux.add(this.list.retrieve());
+        }while(this.list.goToNext());
 
         return aux;
     }
@@ -54,16 +60,16 @@ public class Set<E extends Comparable<E>> implements SetInterface<E>{
         ListInterface<E> set2 = getList();
         SetInterface<E> aux = new Set();
 
-        set.goToFirst();
+        this.list.goToFirst();
 
         do{
-            aux.add(set.retrieve());
-        }while(set.goToNext());
+            aux.add(this.list.retrieve());
+        }while(this.list.goToNext());
 
         set2.goToFirst();
 
         do{
-            if(! set.find(set2.retrieve()))
+            if(! this.list.find(set2.retrieve()))
                 aux.add(set2.retrieve());
         }while(set2.goToNext());
 
@@ -75,22 +81,35 @@ public class Set<E extends Comparable<E>> implements SetInterface<E>{
         ListInterface<E> set2 = getList();
         SetInterface<E> aux = new Set();
 
-        set.goToFirst();
+        this.list.goToFirst();
 
         do{
-            if(! set2.find(set.retrieve()))
-                aux.add(set.retrieve());
-        }while(set.goToNext());
+            if(! set2.find(this.list.retrieve()))
+                aux.add(this.list.retrieve());
+        }while(this.list.goToNext());
 
         set2.goToFirst();
 
         do{
-            if(! set.find(set2.retrieve()))
+            if(! this.list.find(set2.retrieve()))
                 aux.add(set2.retrieve());
         }while(set2.goToNext());
 
         return aux;
     }
 
+    @Override
+    public String toString(){
+        String tmp = "";
+        Set<E> set2 = copySet();
+
+        set2.list.goToFirst();
+
+        do{
+            tmp += set2.list.retrieve();
+        }while(this.list.goToNext());
+
+        return tmp;
+    }
 
 }
