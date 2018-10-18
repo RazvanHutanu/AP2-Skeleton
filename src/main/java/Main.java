@@ -7,10 +7,10 @@ public class Main {
     HashMap<Identifier,Set> map = new HashMap<>();
 
     private void start() {
-        Scanner in = new Scanner(System.in);
+        Scanner in = new Scanner(System.in).useDelimiter("");
 
         // Create a scanner on System.in
-        interpeter(in);
+        parser(in);
         // While there is input, read line and parse it.
     }
 
@@ -18,13 +18,17 @@ public class Main {
         new Main().start();
     }
 
-    public void interpeter(Scanner in){
-        String line = in.nextLine();
-        statement(line);
+    public void parser(Scanner in){
+        String line;
+        while(in.hasNextLine()){
+            line = in.nextLine();
+            Scanner input = new Scanner(line);
+            statement(input, line.charAt(0));
+        }
+
     }
 
-    public void statement(String input) {
-        char firstLetter = input.charAt(0);
+    public void statement(Scanner input, char firstLetter) {
 
         if (Character.isLetter(firstLetter)) {
             assignment(input);
@@ -35,30 +39,26 @@ public class Main {
         }
     }
 
-    public void assignment(String input) {
-        int i;
+    public void assignment(Scanner input) {
         Identifier identifier = makeIdentifier(input);
 
-        i = identifier.getSize();
-        char c = input.charAt(i);
-        i++;
+        identifier.print();
+        char c = nextChar(input);
 
-        while(c != '=' && i < input.length()){
-            c = input.charAt(i);
-            i++;
+        while(c != '=' && input.hasNext()){
+            c = nextChar(input);
         }
 
-        if(i != input.length()){
-            expression();
+        if(input.hasNext()){
+            expression(input);
         } else System.out.print("No '=' ");
     }
 
-    public Identifier makeIdentifier(String input){
-        int i = 0;
-        char c;
+    public Identifier makeIdentifier(Scanner input){
+        input.useDelimiter("");
+        char c = nextChar(input);
         Identifier identifier = new Identifier();
 
-        c = input.charAt(i);
         while(c != ' ' && c != '='){
             if(Character.isLetter(c) || Character.isDigit(c)){
                 identifier.add(c);
@@ -67,18 +67,27 @@ public class Main {
                 break;
             }
 
-            i++;
-            c = input.charAt(i);
+            c = nextChar(input);
         }
 
         return identifier;
     }
 
-    public void expression(){
+    Set expression(Scanner input){
+        Set product = new Set();
+        product = term(input);
+
+        while (input.hasNext()){
+
+        }
 
     }
 
-    public void printStatement(String input){
+    Set term(Scanner input){
+
+    }
+
+    public void printStatement(Scanner input){
 
     }
 
