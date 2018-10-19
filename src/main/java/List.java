@@ -153,21 +153,22 @@ public class List<E extends Comparable<E>> implements ListInterface<E> {
             tmp = tmp.next;
         }
 
-             if (head.data.compareTo(d) > 0) {
-                 current = head;
-                 return false;
-             }
-             tmp = head;
-             while(tmp.data.compareTo(d) < 0 && tmp.next != null){
-                 tmp = tmp.next;
-             }
-            if(tmp.data.compareTo(d) < 0) {
-                current = tmp;
-            }
-            else {
-                current = tmp.prior;
-                return false;
-            }
+        if (head.data.compareTo(d) > 0) {
+            current = head;
+            return false;
+        }
+        tmp = head;
+
+        while(tmp.data.compareTo(d) < 0 && tmp.next != null){
+            tmp = tmp.next;
+        }
+        if(tmp.data.compareTo(d) < 0) {
+            current = tmp;
+        }
+        else {
+            current = tmp.prior;
+            return false;
+        }
 
         return false;
         }

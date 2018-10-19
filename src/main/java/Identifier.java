@@ -10,16 +10,16 @@ public class Identifier implements IdentifierInterface{
         buffer.append(toAdd);
     }
 
+    @Override
     public boolean equals (Object obj){
         if(this == obj) return true;
         if(obj == null) return false;
         if(getClass() != obj.getClass()) return false;
         Identifier tmp = (Identifier) obj;
-        if(getIdentifier() == null) return false;
+        if(buffer == null) return false;
         if(tmp.buffer == null) return false;
-        if(!tmp.buffer.toString().equals(buffer.toString())) return false;
 
-        return true;
+        return tmp.buffer.toString().equals(buffer.toString());
     }
 
     public StringBuffer getIdentifier(){
