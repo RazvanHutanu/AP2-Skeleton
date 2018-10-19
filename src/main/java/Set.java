@@ -101,6 +101,8 @@ public class Set<E extends Comparable<E>> implements SetInterface<E>{
 
     @Override
     public String toString(){
+        if(list.size() == 0)
+            return "";
         String tmp = "";
         Set<E> set2 = copySet();
 

@@ -30,22 +30,22 @@ public class Identifier implements IdentifierInterface{
         return buffer.length();
     }
 
-    @Override
-    public int hashCode(){
-       int hashCode = 2;
-
-       for(int i = 0; i < getSize(); i++)
-           hashCode = hashCode*10 + buffer.toString().charAt(i);
-
-       return hashCode;
-    }
+//    @Override
+//    public int hashCode(){
+//       int hashCode = 2;
+//
+//       for(int i = 0; i < getSize(); i++)
+//           hashCode = hashCode*10 + buffer.toString().charAt(i);
+//
+//       return hashCode;
+//    }
 
     public void print(){
         System.out.println(buffer + "\n");
     }
 
-//    @Override
-//    public int hashCode(){
-//        return buffer.toString().hashCode();
-//    }
+    @Override
+    public int hashCode(){
+        return buffer.toString().hashCode();
+    }
 }

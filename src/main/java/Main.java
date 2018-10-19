@@ -62,24 +62,20 @@ public class Main {
         if(currentChar == '=' || input.hasNext()){
             nextChar(input);
             map.put(identifier, expression(input));
-            System.out.println(map.get(identifier));
         } else throw new APException("No '=' ");
 
     }
 
     public Identifier makeIdentifier(Scanner input) throws APException{
         Identifier identifier = new Identifier();
+        identifier.add(currentChar);
+        nextChar(input);
 
-        do{
-            if(Character.isLetter(currentChar) || Character.isDigit(currentChar)){
+        while(Character.isLetter(currentChar) || Character.isDigit(currentChar)){
                 identifier.add(currentChar);
-            }else {
-
-                throw new APException("only letters and digits in identifiers");
-            }
 
             nextChar(input);
-        }while(currentChar != ' ' && currentChar != '=' && input.hasNext());
+        }
         return identifier;
     }
 
@@ -188,9 +184,6 @@ public class Main {
             }
             nextChar(input);
         }
-
-        System.out.println(set);
-
         return set;
     }
 
