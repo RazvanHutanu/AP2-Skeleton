@@ -7,7 +7,7 @@ public class Main {
     private char currentChar;
     private int parenthesisCounter;
 
-    HashMap<StringBuffer,Set> map = new HashMap<>();
+    HashMap<StringBuffer,Set<BigInteger>> map = new HashMap<>();
 
     private void start() throws APException{
         Scanner in = new Scanner(System.in);
@@ -60,13 +60,12 @@ public class Main {
     public void assignment(Scanner input) throws APException{
         Identifier identifier = makeIdentifier(input);
 
-        identifier.print();
-
         removeWhiteSpaces(input);
 
         if(currentChar == '='){
             nextChar(input);
-            System.out.println("current char in assignment dupa egal: " + currentChar);
+            System.out.print("current char in assignment dupa egal: " + currentChar);
+            identifier.print();
             map.put(identifier.getIdentifier(), expression(input));
         } else throw new APException("No '=' ");
     }
@@ -74,10 +73,10 @@ public class Main {
     public Identifier makeIdentifier(Scanner input) throws APException{
         Identifier identifier = new Identifier();
 
-        System.out.println("current char in makeIdentifier: " + currentChar);
-        while(currentChar != ' ' && currentChar != '=' && input.hasNext()){
+//        System.out.println("current char in makeIdentifier: " + currentChar);
+        do{
             if(Character.isLetter(currentChar) || Character.isDigit(currentChar)){
-                System.out.println("caracterul adaugat in identifier: " + currentChar);
+//                System.out.println("caracterul adaugat in identifier: " + currentChar);
                 identifier.add(currentChar);
             }else {
                 throw new APException("only letters and digits in identifiers");
@@ -85,9 +84,10 @@ public class Main {
 
             nextChar(input);
             nextChar(input);
-            System.out.println("current char dupa 2 next char in makeidentifier " + currentChar);
-        }
-
+//            System.out.println("current char dupa 2 next char in makeidentifier " + currentChar);
+        }while(currentChar != ' ' && currentChar != '=' && input.hasNext());
+        System.out.print("Identifierul format in makeIdentifier: ");
+        identifier.print();
         return identifier;
     }
 
@@ -135,7 +135,6 @@ public class Main {
                 }
             }
         }
-
         return product;
     }
 
@@ -146,7 +145,7 @@ public class Main {
 
         removeWhiteSpaces(input);
 
-        System.out.println(product.toString());
+//        System.out.println(product.toString());
 //        System.out.println("current char in term: " + currentChar);
 //        while(input.hasNext() && currentChar != '\n'){
             removeWhiteSpaces(input);
@@ -168,9 +167,8 @@ public class Main {
         if(Character.isLetter(currentChar)){
             System.out.println("factor current char: " + currentChar);
             Identifier identifier = makeIdentifier(input);
-            System.out.println("Identifierul cautat in map: " + identifier.getIdentifier());
 //            identifier.print();
-            return map.get(getSet(identifier.getIdentifier()));
+            return map.get(getSet(identifier));
         }
         else if (currentChar == '{'){
             nextChar(input);
@@ -245,12 +243,12 @@ public class Main {
             input.nextLine();
     }
 
-    Set getSet(StringBuffer identifier) throws APException {
-        System.out.println("Identifierul cautat in map: " + identifier);
-        if(map.get(identifier) == null)
+    Set getSet(Identifier identifier) throws APException {
+        System.out.println("Identifierul cautat in map: " + identifier.getIdentifier());
+        if(map.get(identifier.getIdentifier()) == null)
             throw new APException("Set not found");
 
-        return map.get(identifier);
+        return map.get(identifier.getIdentifier());
     }
 
     char nextChar(Scanner input){
