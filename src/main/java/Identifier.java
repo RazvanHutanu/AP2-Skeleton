@@ -25,4 +25,9 @@ public class Identifier implements IdentifierInterface{
     public void print(){
         System.out.println(buffer + "\n");
     }
+
+    @Override
+    public int hashCode(){
+        return buffer.toString().hashCode();
+    }
 }

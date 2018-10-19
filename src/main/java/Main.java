@@ -62,12 +62,18 @@ public class Main {
 
         removeWhiteSpaces(input);
 
-        if(currentChar == '='){
+
+        if(currentChar == '=' || input.hasNext()){
             nextChar(input);
             System.out.print("current char in assignment dupa egal: " + currentChar);
             identifier.print();
             map.put(identifier.getIdentifier(), expression(input));
         } else throw new APException("No '=' ");
+
+//        if(input.hasNext() || currentChar == '='){
+//            expression(input);
+//        } else System.out.print("No '=' ");
+
     }
 
     public Identifier makeIdentifier(Scanner input) throws APException{
@@ -90,6 +96,7 @@ public class Main {
         identifier.print();
         return identifier;
     }
+
 
     Set expression(Scanner input) throws APException{
         removeWhiteSpaces(input);
@@ -193,10 +200,10 @@ public class Main {
                 removeWhiteSpaces(input);
 
                 if(currentChar == ',') {
-                    System.out.println("s-o adaugat in lista: " + number);
+//                    System.out.println("s-o adaugat in lista: " + number);
                     set.add(number);
                 }else if(currentChar == '}') {
-                    System.out.println("s-o adaugat in lista inainte de }: " + number);
+//                    System.out.println("s-o adaugat in lista inainte de }: " + number);
                     set.add(number);
                     nextChar(input);
                     break;
@@ -243,9 +250,15 @@ public class Main {
             input.nextLine();
     }
 
+<<<<<<< Updated upstream
     Set getSet(Identifier identifier) throws APException {
         System.out.println("Identifierul cautat in map: " + identifier.getIdentifier());
         if(map.get(identifier.getIdentifier()) == null)
+=======
+    Set getSet(StringBuffer identifier) throws APException {
+       // System.out.println("Identifierul cautat in map: " + identifier);
+        if(map.get(identifier) == null)
+>>>>>>> Stashed changes
             throw new APException("Set not found");
 
         return map.get(identifier.getIdentifier());
