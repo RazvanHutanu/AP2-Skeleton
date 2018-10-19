@@ -187,7 +187,7 @@ public class Main {
         throw new APException("Invalid character");
     }
 
-    //ia un numer cu getNumber, verifica currentChar daca e virgula
+    
     Set rowNaturalNumber(Scanner input) throws APException{
         Set<BigInteger> set = new Set<>();
         BigInteger number;
