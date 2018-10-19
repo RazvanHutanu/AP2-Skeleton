@@ -30,6 +30,7 @@ public class Main {
         while(in.hasNextLine()){
             parenthesisCounter = 0;
             line = in.nextLine();
+            line += " ";
             Scanner input = new Scanner(line);
             input.useDelimiter("");
             nextChar(input);
@@ -172,7 +173,6 @@ public class Main {
         removeWhiteSpaces(input);
         while(currentChar != '}' && input.hasNext()){
             removeWhiteSpaces(input);
-
             if(Character.isDigit(currentChar)) {
                 number = getNumber(input);
                 removeWhiteSpaces(input);
@@ -181,16 +181,20 @@ public class Main {
                     set.add(number);
                 }else if(currentChar == '}') {
                     set.add(number);
-                    nextChar(input);
+//                    nextChar(input);
                     break;
                 }
                 else
                     throw new APException("Invalid character");
-            }
+
+            }else throw new APException("Invalid character");
             nextChar(input);
         }
+
         if(currentChar == '}')
             nextChar(input);
+        else
+            throw new APException("No closing bracket");
         return set;
     }
 
