@@ -23,6 +23,6 @@ public class Identifier implements IdentifierInterface{
     }
 
     public void print(){
-        System.out.print(buffer + "\n");
+        System.out.println(buffer + "\n");
     }
 }

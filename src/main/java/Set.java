@@ -106,7 +106,7 @@ public class Set<E extends Comparable<E>> implements SetInterface<E>{
         set2.list.goToFirst();
 
         do{
-            tmp += set2.list.retrieve();
+            tmp = tmp + " " + set2.list.retrieve();
         }while(this.list.goToNext());
 
         return tmp;
