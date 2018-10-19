@@ -1,4 +1,4 @@
-import java.io.PrintStream;
+
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -21,7 +21,7 @@ public class Main {
         try {
             new Main().start();
         }catch(APException e){
-            System.out.print(e);
+            System.out.print(e.getMessage());
         }
     }
 

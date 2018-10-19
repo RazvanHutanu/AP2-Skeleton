@@ -73,7 +73,7 @@ public class Set<E extends Comparable<E>> implements SetInterface<E>{
                 aux.add(set2.retrieve());
         }while(set2.goToNext());
 
-        System.out.println(aux.toString());
+//        System.out.println(aux.toString());
         return aux;
     }
 
