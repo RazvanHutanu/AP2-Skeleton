@@ -32,7 +32,7 @@ public class Main {
             line = in.nextLine();
             Scanner input = new Scanner(line);
             input.useDelimiter("");
-            currentChar = line.charAt(0);
+            nextChar(input);
             statement(input);
         }
 
@@ -50,10 +50,7 @@ public class Main {
     }
 
     public void printStatement(Scanner input) throws APException{
-        System.out.println("current char: " + currentChar);
         nextChar(input);
-        nextChar(input);
-        System.out.println("current char: " + currentChar);
         System.out.println(expression(input));
     }
 
@@ -62,42 +59,27 @@ public class Main {
 
         removeWhiteSpaces(input);
 
-
         if(currentChar == '=' || input.hasNext()){
             nextChar(input);
-//            System.out.print("current char in assignment dupa egal: " + currentChar);
-            identifier.print();
             map.put(identifier, expression(input));
-            Set set = map.get(identifier);
-            System.out.println(set.toString());
+            System.out.println(map.get(identifier));
         } else throw new APException("No '=' ");
-
-//        if(input.hasNext() || currentChar == '='){
-//            expression(input);
-//        } else System.out.print("No '=' ");
 
     }
 
     public Identifier makeIdentifier(Scanner input) throws APException{
         Identifier identifier = new Identifier();
 
-//        System.out.println("current char in makeIdentifier: " + currentChar);
         do{
             if(Character.isLetter(currentChar) || Character.isDigit(currentChar)){
-                System.out.println("caracterul adaugat in identifier: " + currentChar);
                 identifier.add(currentChar);
-                nextChar(input);
             }else {
 
                 throw new APException("only letters and digits in identifiers");
             }
 
             nextChar(input);
-//            nextChar(input);
-//            System.out.println("current char dupa 2 next char in makeidentifier " + currentChar);
         }while(currentChar != ' ' && currentChar != '=' && input.hasNext());
-//        System.out.print("Identifierul format in makeIdentifier: ");
-        identifier.print();
         return identifier;
     }
 
@@ -105,19 +87,13 @@ public class Main {
     Set expression(Scanner input) throws APException{
         removeWhiteSpaces(input);
         Set<BigInteger> product = term(input);
-//        System.out.print(currentChar + "\n");
 
-
-        System.out.println("current char dupa term in expression: " + currentChar);
         while (input.hasNext() && currentChar != '\n'){
-            System.out.print("Expression while\n");
             removeWhiteSpaces(input);
             switch(currentChar){
                 case '+': {
-                    System.out.println("Am intrat in +");
                     nextChar(input);
                     removeWhiteSpaces(input);
-                    System.out.println("Current char dupa plus " + currentChar);
                     product = (Set<BigInteger>) product.union(term(input));
                     break;
                 }
@@ -153,20 +129,18 @@ public class Main {
 
     Set term(Scanner input) throws APException{
         removeWhiteSpaces(input);
-         Set<BigInteger> product = factor(input);
+        Set<BigInteger> product = factor(input);
 
         removeWhiteSpaces(input);
 
-//        System.out.println(product.toString());
-//        System.out.println("current char in term: " + currentChar);
-//        while(input.hasNext() && currentChar != '\n'){
+        while(input.hasNext() && currentChar != '\n'){
             removeWhiteSpaces(input);
             if( currentChar == '*'){
                 nextChar(input);
                 removeWhiteSpaces(input);
                 product = (Set<BigInteger>) product.intersection(term(input));
-            }
-//        }
+            } else break;
+        }
 
         return product;
     }
@@ -181,9 +155,7 @@ public class Main {
         }
         else if (currentChar == '{'){
             nextChar(input);
-            Set<BigInteger> set = rowNaturalNumber(input);
-            System.out.println(set.toString());
-            return set;
+            return rowNaturalNumber(input);
         } else if(currentChar == '('){
             return complexFactor(input);
         }
@@ -196,6 +168,7 @@ public class Main {
         Set<BigInteger> set = new Set<>();
         BigInteger number;
 
+        removeWhiteSpaces(input);
         while(currentChar != '}' && input.hasNext()){
             removeWhiteSpaces(input);
 
@@ -204,10 +177,8 @@ public class Main {
                 removeWhiteSpaces(input);
 
                 if(currentChar == ',') {
-//                    System.out.println("s-o adaugat in lista: " + number);
                     set.add(number);
                 }else if(currentChar == '}') {
-//                    System.out.println("s-o adaugat in lista inainte de }: " + number);
                     set.add(number);
                     nextChar(input);
                     break;
@@ -217,6 +188,12 @@ public class Main {
             }
             nextChar(input);
         }
+
+//        if(set.getSize() == 0){
+//
+//        }
+
+        System.out.println(set);
 
         return set;
     }
@@ -254,7 +231,6 @@ public class Main {
             input.nextLine();
     }
 
-<<<<<<< Updated upstream
     Set getSet(Identifier identifier) throws APException {
         if(map.get(identifier) == null)
             throw new APException("Set not found");
@@ -274,7 +250,6 @@ public class Main {
     void removeWhiteSpaces(Scanner input){
         while(currentChar == ' ' && input.hasNext())
             nextChar(input);
-
     }
 }
 

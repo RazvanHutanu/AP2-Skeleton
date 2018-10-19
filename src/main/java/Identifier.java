@@ -10,7 +10,6 @@ public class Identifier implements IdentifierInterface{
         buffer.append(toAdd);
     }
 
-    @Override
     public boolean equals (Object obj){
         if(this == obj) return true;
         if(obj == null) return false;
@@ -20,7 +19,7 @@ public class Identifier implements IdentifierInterface{
         if(tmp.buffer == null) return false;
         if(!tmp.buffer.toString().equals(buffer.toString())) return false;
 
-       return true;
+        return true;
     }
 
     public StringBuffer getIdentifier(){
@@ -45,8 +44,8 @@ public class Identifier implements IdentifierInterface{
         System.out.println(buffer + "\n");
     }
 
-    @Override
-    public int hashCode(){
-        return buffer.toString().hashCode();
-    }
+//    @Override
+//    public int hashCode(){
+//        return buffer.toString().hashCode();
+//    }
 }
