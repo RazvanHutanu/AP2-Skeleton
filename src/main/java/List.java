@@ -89,13 +89,11 @@ public class List<E extends Comparable<E>> implements ListInterface<E> {
 
     private void printList() {
         Node tmp = head;
-        if(isEmpty())
-            return;
-
-        while(tmp != null) {
-            System.out.print(tmp.data + " - ");
-            tmp = tmp.next;
-        }
+        if(!isEmpty())
+            while(tmp != null) {
+                System.out.print(tmp.data + " - ");
+                tmp = tmp.next;
+            }
     }
 
     @Override
@@ -141,7 +139,7 @@ public class List<E extends Comparable<E>> implements ListInterface<E> {
     public boolean find(E d) {
         Node tmp = head;
 
-        if (this.isEmpty()) {
+        if (isEmpty()) {
             current = null;
             return false;
         }

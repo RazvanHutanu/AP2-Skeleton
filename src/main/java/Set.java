@@ -7,7 +7,8 @@ public class Set<E extends Comparable<E>> implements SetInterface<E>{
 
     @Override
     public void add(E value) {
-        list.insert(value);
+        if(!list.find(value))
+            list.insert(value);
     }
 
     public ListInterface<E> getList(){
@@ -26,9 +27,14 @@ public class Set<E extends Comparable<E>> implements SetInterface<E>{
     }
 
     @Override
-    public SetInterface<E> difference(SetInterface<E> list){
-        ListInterface<E> set2 = list.getList();
+    public SetInterface<E> difference(SetInterface<E> list2){
+        ListInterface<E> set2 = list2.getList();
         SetInterface<E> aux = new Set();
+
+        if(getSize() == 0 && set2.size() == 0)
+            return aux;
+        else if(getSize() == 0) return aux;
+        else if(set2.size() == 0) return copy(list);
 
         this.list.goToFirst();
 
@@ -41,9 +47,14 @@ public class Set<E extends Comparable<E>> implements SetInterface<E>{
     }
 
     @Override
-    public SetInterface<E> intersection(SetInterface<E> list){
-        ListInterface<E> set2 = list.getList();
+    public SetInterface<E> intersection(SetInterface<E> list2){
+        ListInterface<E> set2 = list2.getList();
         SetInterface<E> aux = new Set();
+
+        if(getSize() == 0 || set2.size() == 0)
+            return aux;
+
+//        System.out.println("size-ul Aap: " + this.getSize());
 
         this.list.goToFirst();
 
@@ -55,10 +66,26 @@ public class Set<E extends Comparable<E>> implements SetInterface<E>{
         return aux;
     }
 
-    @Override
-    public SetInterface<E> union(SetInterface<E> list) {
-        ListInterface<E> set2 = list.getList();
+    private SetInterface<E> copy(ListInterface<E> toCopy){
         SetInterface<E> aux = new Set();
+        toCopy.goToFirst();
+
+        do{
+            aux.add(toCopy.retrieve());
+        }while(toCopy.goToNext());
+
+        return aux;
+    }
+
+    @Override
+    public SetInterface<E> union(SetInterface<E> list2) {
+        ListInterface<E> set2 = list2.getList();
+        SetInterface<E> aux = new Set();
+
+        if(getSize() == 0 && set2.size() == 0)
+            return aux;
+        else if(getSize() == 0) return copy(set2);
+            else if(set2.size() == 0) return copy(list);
 
         this.list.goToFirst();
 
@@ -78,9 +105,14 @@ public class Set<E extends Comparable<E>> implements SetInterface<E>{
     }
 
     @Override
-    public SetInterface<E> symmetricDifference(SetInterface<E> list) {
-        ListInterface<E> set2 = list.getList();
+    public SetInterface<E> symmetricDifference(SetInterface<E> list2) {
+        ListInterface<E> set2 = list2.getList();
         SetInterface<E> aux = new Set();
+
+        if(getSize() == 0 && set2.size() == 0)
+            return aux;
+        else if(getSize() == 0) return copy(set2);
+        else if(set2.size() == 0) return copy(list);
 
         this.list.goToFirst();
 

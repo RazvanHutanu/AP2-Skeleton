@@ -21,11 +21,11 @@ public class Main {
         try {
             new Main().start();
         }catch(APException e){
-            System.out.print(e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 
-    public void parser(Scanner in) throws APException{
+    public void parser(Scanner in){
         String line;
         while(in.hasNextLine()){
             parenthesisCounter = 0;
@@ -33,7 +33,12 @@ public class Main {
             Scanner input = new Scanner(line);
             input.useDelimiter("");
             nextChar(input);
-            statement(input);
+            try {
+                removeWhiteSpaces(input);
+                statement(input);
+            }catch(APException e){
+                System.out.println(e.getMessage());
+            }
         }
 
     }
@@ -46,7 +51,7 @@ public class Main {
             printStatement(input);
         } else if (currentChar == '/') {
             comment(input);
-        }
+        } else throw new APException("No statement");
     }
 
     public void printStatement(Scanner input) throws APException{
@@ -184,6 +189,8 @@ public class Main {
             }
             nextChar(input);
         }
+        if(currentChar == '}')
+            nextChar(input);
         return set;
     }
 
