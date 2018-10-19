@@ -62,7 +62,8 @@ public class Main {
 
         removeWhiteSpaces(input);
 
-        if(currentChar == '='){
+
+        if(currentChar == '=' || input.hasNext()){
             nextChar(input);
 //            System.out.print("current char in assignment dupa egal: " + currentChar);
             identifier.print();
@@ -70,6 +71,11 @@ public class Main {
             Set set = map.get(identifier);
             System.out.println(set.toString());
         } else throw new APException("No '=' ");
+
+//        if(input.hasNext() || currentChar == '='){
+//            expression(input);
+//        } else System.out.print("No '=' ");
+
     }
 
     public Identifier makeIdentifier(Scanner input) throws APException{
@@ -94,6 +100,7 @@ public class Main {
         identifier.print();
         return identifier;
     }
+
 
     Set expression(Scanner input) throws APException{
         removeWhiteSpaces(input);
@@ -247,6 +254,7 @@ public class Main {
             input.nextLine();
     }
 
+<<<<<<< Updated upstream
     Set getSet(Identifier identifier) throws APException {
         if(map.get(identifier) == null)
             throw new APException("Set not found");
