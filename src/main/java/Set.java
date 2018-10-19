@@ -10,7 +10,7 @@ public class Set<E extends Comparable<E>> implements SetInterface<E>{
         list.insert(value);
     }
 
-    private ListInterface<E> getList(){
+    public ListInterface<E> getList(){
         return list.copy();
     }
 
@@ -27,7 +27,7 @@ public class Set<E extends Comparable<E>> implements SetInterface<E>{
 
     @Override
     public SetInterface<E> difference(SetInterface<E> list){
-        ListInterface<E> set2 = getList();
+        ListInterface<E> set2 = list.getList();
         SetInterface<E> aux = new Set();
 
         this.list.goToFirst();
@@ -42,7 +42,7 @@ public class Set<E extends Comparable<E>> implements SetInterface<E>{
 
     @Override
     public SetInterface<E> intersection(SetInterface<E> list){
-        ListInterface<E> set2 = getList();
+        ListInterface<E> set2 = list.getList();
         SetInterface<E> aux = new Set();
 
         this.list.goToFirst();
@@ -57,7 +57,7 @@ public class Set<E extends Comparable<E>> implements SetInterface<E>{
 
     @Override
     public SetInterface<E> union(SetInterface<E> list) {
-        ListInterface<E> set2 = getList();
+        ListInterface<E> set2 = list.getList();
         SetInterface<E> aux = new Set();
 
         this.list.goToFirst();
@@ -73,12 +73,13 @@ public class Set<E extends Comparable<E>> implements SetInterface<E>{
                 aux.add(set2.retrieve());
         }while(set2.goToNext());
 
+        System.out.println(aux.toString());
         return aux;
     }
 
     @Override
     public SetInterface<E> symmetricDifference(SetInterface<E> list) {
-        ListInterface<E> set2 = getList();
+        ListInterface<E> set2 = list.getList();
         SetInterface<E> aux = new Set();
 
         this.list.goToFirst();

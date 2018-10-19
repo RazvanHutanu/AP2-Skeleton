@@ -46,14 +46,12 @@ public class List<E extends Comparable<E>> implements ListInterface<E> {
         if( isEmpty() ) {
             head = tmp;
             tail = tmp;
-            System.out.println("INSERTED FIRST");
             current = tmp;
             length++;
             return this;
         }
 
         if(tmp.data.compareTo(head.data) < 0){
-            System.out.println("INSERTED SECOND");
             head.prior = tmp;
             tmp.next = head;
             head = tmp;
@@ -71,7 +69,6 @@ public class List<E extends Comparable<E>> implements ListInterface<E> {
                 tmp.next = tmp2;
                 tmp2.prior = tmp;
 
-                System.out.println("INSERTED MIDDLE");
 
                 current = tmp;
                 length++;
@@ -82,7 +79,6 @@ public class List<E extends Comparable<E>> implements ListInterface<E> {
 
         }
 
-        System.out.println("INSERTED LAST");
         tmp.prior = tail;
         tail.next = tmp;
         tail = tmp;
@@ -104,65 +100,81 @@ public class List<E extends Comparable<E>> implements ListInterface<E> {
 
     @Override
     public E retrieve() {
-        if (!isEmpty()) {
-            return this.current.data;
-        }
-        else {
-            //eroare
+        if (isEmpty())
             return null;
-        }
+        return current.data;
+
     }
 
     @Override
     public ListInterface<E> remove() {
-        if(! isEmpty()){
-            if(current == tail){
-                tail = tail.prior;
-                current = tail;
-            } else {
-                current.prior.next = current.next;
-                current.next.prior = current.prior;
-                current = current.next;
-            }
-            length--;
-        } else {
-            //error
+        if (this.isEmpty())
             return null;
+        if (current.prior == null && this.size() > 2) {
+            current = current.next;
+            current.prior = null;
+            head = current;
+            length--;
+            return this;
         }
-
-        return null;
+        if (this.size() == 1) {
+            current = null;
+            length--;
+            return this;
+        } else if (current.next == null) {
+            current = current.prior;
+            current.next = null;
+            length--;
+            return this;
+        } else {
+            Node tmp = current.prior;
+            current = current.next;
+            tmp.next = current;
+            current.prior = tmp;
+            length--;
+            return this;
+        }
     }
+
 
     @Override
     public boolean find(E d) {
         Node tmp = head;
 
+        if (this.isEmpty()) {
+            current = null;
+            return false;
+        }
+
         while(tmp != null) {
 
-            if(tmp.data == d) {
+            if(d.compareTo(tmp.data) == 0) {
                 current = tmp;
                 return true;
             }
-
-             if (isEmpty()) {
-                 current = null;
-                 return false;
-             }
+            tmp = tmp.next;
+        }
 
              if (head.data.compareTo(d) > 0) {
                  current = head;
-                 return true;
+                 return false;
              }
-
-            if(tail.data.compareTo(d) < 0){
-                current = tail;
-                return true;
+             tmp = head;
+             while(tmp.data.compareTo(d) < 0 && tmp.next != null){
+                 tmp = tmp.next;
+             }
+            if(tmp.data.compareTo(d) < 0) {
+                current = tmp;
             }
-            tmp = tmp.next;
+            else {
+                current = tmp.prior;
+                return false;
+            }
 
-        }
         return false;
-    }
+        }
+
+
 
     @Override
     public boolean goToFirst() {

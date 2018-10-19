@@ -177,15 +177,41 @@ public class ListTest {
     @Test
     public void testFind() {
 
-//        List<Letter> list = new List<>();
-//        Letter a = new Letter('a');
-//        Letter b = new Letter('b');
-//        Letter c = new Letter('c');
-//        Letter d = new Letter('d');
-//        list.insert(a);
-//        list.insert(b);
-//        list.insert(c);
-//        list.insert(d);
+        List<Letter> list = new List<>();
+        Letter a = new Letter('a');
+        Letter b = new Letter('b');
+        Letter c = new Letter('c');
+        Letter x = new Letter('x');
+        Letter e = new Letter('e');
+        Letter h = new Letter('h');
+        list.insert(a);
+        list.insert(b);
+        list.insert(c);
+        list.insert(x);
+        list.goToFirst();
+        list.remove();
+        assertFalse(list.find(e));
+        assertEquals(c, list.retrieve());
+
+        list.init();
+        list.insert(h);
+        list.insert(b);
+        list.insert(a);
+        list.goToFirst();
+        assertEquals(a, list.retrieve());
+
+        assertFalse(list.find(c));
+        assertEquals(b, list.retrieve());
+
+        list.insert(a);
+        list.goToFirst();
+        list.goToNext();
+        assertEquals(a, list.retrieve());
+        list.goToNext();
+        assertEquals(h, list.retrieve());
+
+        list.init();
+        assertEquals(null, list.remove());
 
 
         // TODO: You can add more of your own tests.
