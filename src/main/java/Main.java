@@ -189,10 +189,6 @@ public class Main {
             nextChar(input);
         }
 
-//        if(set.getSize() == 0){
-//
-//        }
-
         System.out.println(set);
 
         return set;
