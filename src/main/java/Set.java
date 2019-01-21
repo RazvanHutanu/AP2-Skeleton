@@ -1,3 +1,4 @@
+@SuppressWarnings("unchecked")
 public class Set<E extends Comparable<E>> implements SetInterface<E>{
     private ListInterface<E> list = new List<>();
 
@@ -140,9 +141,9 @@ public class Set<E extends Comparable<E>> implements SetInterface<E>{
 
         set2.list.goToFirst();
 
-        do{
+        do {
             tmp = tmp + set2.list.retrieve() + " ";
-        }while(this.list.goToNext());
+        } while (this.list.goToNext());
 
         return tmp;
     }
