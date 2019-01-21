@@ -65,7 +65,7 @@ public class Main {
 
         removeWhiteSpaces(input);
 
-        if(currentChar == '=' || input.hasNext()){
+        if(currentChar == '=' && input.hasNext()){
             nextChar(input);
             map.put(identifier, expression(input));
         } else throw new APException("No '=' ");
@@ -78,8 +78,7 @@ public class Main {
         nextChar(input);
 
         while(Character.isLetter(currentChar) || Character.isDigit(currentChar)){
-                identifier.add(currentChar);
-
+            identifier.add(currentChar);
             nextChar(input);
         }
         return identifier;
@@ -169,9 +168,11 @@ public class Main {
     Set rowNaturalNumber(Scanner input) throws APException{
         Set<BigInteger> set = new Set<>();
         BigInteger number;
+        boolean changeChar;
 
         removeWhiteSpaces(input);
         while(currentChar != '}' && input.hasNext()){
+            changeChar = true;
             removeWhiteSpaces(input);
             if(Character.isDigit(currentChar)) {
                 number = getNumber(input);
@@ -179,6 +180,13 @@ public class Main {
 
                 if(currentChar == ',') {
                     set.add(number);
+
+                    nextChar(input);
+                    changeChar = false;
+                    removeWhiteSpaces(input);
+                    if(currentChar == '}')
+                        throw new APException("No character after comma");
+
                 }else if(currentChar == '}') {
                     set.add(number);
 //                    nextChar(input);
@@ -188,7 +196,8 @@ public class Main {
                     throw new APException("Invalid character");
 
             }else throw new APException("Invalid character");
-            nextChar(input);
+            if(changeChar)
+                nextChar(input);
         }
 
         if(currentChar == '}')
