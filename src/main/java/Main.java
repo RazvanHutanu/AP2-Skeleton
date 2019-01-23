@@ -72,7 +72,7 @@ public class Main {
 
     }
 
-    public Identifier makeIdentifier(Scanner input) throws APException{
+    public Identifier makeIdentifier(Scanner input){
         Identifier identifier = new Identifier();
         identifier.add(currentChar);
         nextChar(input);
@@ -189,7 +189,6 @@ public class Main {
 
                 }else if(currentChar == '}') {
                     set.add(number);
-//                    nextChar(input);
                     break;
                 }
                 else
